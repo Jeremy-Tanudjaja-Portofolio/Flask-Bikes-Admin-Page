@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Report Page</title>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/report.css')}}" />
+  </head>
+
+  <body>
+  <div class="clickcard">
+  <div class="content" style="padding-top:10rem; padding-bottom:10rem;">
+    <div class="title-bar" >
+      <div id="back_to_home">
+        <a href ="{{url_for('home')}}" style="color:black">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAARtJREFUaEPt19ERwiAQBNBNJ9qJdqKVaSmWYikOH8xkHCBwd8CSuXxLZt8tkWTD4te2eH44YHaD3oA3oJyAb6HEAG8APsrBVi+3buAB4AXgDeBZnULxQ0tADB/jDEFYAf7DR8S993ayAOTChy0UWuh6aQFTw4fJaADTw2sAFOGlAJrwEgBV+FYAXfgWAGX4WgBt+BoAdfgjQC5815O1cPPkmZU7yNjCZ4d9WkAQs7XQtIXiVlz6IV4CUfs2SttELaD0TAz5cMn9vbYAKBGtADqEBECFkAJoEBoABUILmI6wAJQQVwDfnq+vVoAUYsj5YAnYI4aEP/qgkTZ/6b1t9sGsG5CixescIB6d0UJvwGiQ4tt4A+LRGS1cvoEf3706Me06IuQAAAAASUVORK5CYII="/>
+        </a>
+      </div>
+        <h1 style="text-align:center; font-size:8rem; padding-bottom:8rem;">Report Page</h1>
+      </div>
+
+    <div class="grid">
+      <div class="grid-item">
+        <div class="card" >
+          <img class="card-img" src="{{url_for('static', filename='res/report_pic/total_unit_sales.jpg')}}" alt="Rome" />
+          <div class="card-content">
+            <h1 class="card-header">Total Salary</h1>
+            <p class="card-text">
+              Total Annual Salary that the company needs to pay is $
+              <strong> {{data['total_annual_salary']}}</strong>, it is the SUM
+              of every employee's salary That the company has to pay annually
+            </p>
+            <button class="card-btn" id="AnnualDeptSal">Show <span>&rarr;</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="grid-item">
+        <div class="card" >
+          <img
+            class="card-img"
+            src="{{url_for('static', filename='res/report_pic/sales_logo.jpg')}}"
+            alt="Grand Canyon"
+          />
+          <div class="card-content">
+            <h1 class="card-header">Total Unit Sales</h1>
+            <p class="card-text">
+              This is the count of all the products that Bike Rush has sold
+              as of now. The count is about:
+              <strong>{{data['total_unit_sales']}}</strong> Unit
+              of Bikes Sold from All Types of Bikes
+            </p>
+            <button class="card-btn" id="AverageSales">Show Total Unit Sales<span>&rarr;</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="grid-item">
+        <div class="card" >
+          <img class="card-img" src="{{url_for('static', filename='res/report_pic/material_delivery.jpg')}}" alt="Maldives" />
+          <div class="card-content">
+            <h1 class="card-header">Material Delivery</h1>
+            <p class="card-text">
+              This is the count of all the material orders that
+              Bike Rush has done for its procurement purposes
+              It has done: <strong>{{data['total_material_order']}}</strong>
+              procurement action
+            </p>
+            <button class="card-btn" id="OrderAvg">Show Vendor Procured <span>&rarr;</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="grid-item">
+        <div class="card">
+          <img class="card-img" src="{{url_for('static', filename='res/report_pic/material_payment.jpg')}}" alt="Rome" />
+          <div class="card-content">
+            <h1 class="card-header">Sum of Profit</h1>
+            <p class="card-text">
+              This is the total profit that
+              Bike Rush has made, it is the sum
+              of all the bikes sold:
+              <strong>$ {{data['total_sales']}}</strong>
+            </p>
+            <button class="card-btn" id="ProductSales">Show Product Purchase<span>&rarr;</span></button>
+          </div>
+        </div>
+        </div>
+      <div class="grid-item">
+        <div class="card" >
+          <img
+            class="card-img"
+            src="{{url_for('static', filename='res/report_pic/total_employee.jpeg')}}"
+            alt="Grand Canyon"
+          />
+          <div class="card-content">
+            <h1 class="card-header">Total Employee</h1>
+            <p class="card-text">
+              Bike Rush has employed many people through
+              out the years of its existence, as of now
+              it has: <strong>{{data['total_employees']}}</strong> people that
+              works here.
+            </p>
+            <button class="card-btn" id="ViewEmployee">Show Employee<span>&rarr;</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div>
+ <section class="home-section" id="table" style=" padding-bottom:5rem;">
+      <div class="text"></div>
+  </section>
+  </div>
+  </body>
+<script>
+  //ajax Annual Dept Sal
+    $(document).ready(function(){
+        $("#AnnualDeptSal").click(function(){
+             $.ajax({
+                url:'/AnnualDeptSal',
+                type:'POST',
+                success: function(response){
+                    $('#table').html(response)
+                }
+            })
+        });
+      });
+
+      //ajax Average Sales
+    $(document).ready(function(){
+        $("#AverageSales").click(function(){
+             $.ajax({
+                url:'/AverageSales',
+                type:'POST',
+                success: function(response){
+                    $('#table').html(response)
+                }
+            })
+        });
+      });
+
+      //ajax Order Average
+    $(document).ready(function(){
+        $("#OrderAvg").click(function(){
+             $.ajax({
+                url:'/OrderAvg',
+                type:'POST',
+                success: function(response){
+                    $('#table').html(response)
+                }
+            })
+        });
+      });
+
+      //ajax Product Sales
+    $(document).ready(function(){
+        $("#ProductSales").click(function(){
+             $.ajax({
+                url:'/ProductSales',
+                type:'POST',
+                success: function(response){
+                    $('#table').html(response)
+                }
+            })
+        });
+      });
+
+      //ajax View Manager
+    $(document).ready(function(){
+        $("#ViewEmployee").click(function(){
+             $.ajax({
+                url:'/ViewManager',
+                type:'POST',
+                success: function(response){
+                    $('#table').html(response)
+                }
+            })
+        });
+      });
+</script>
+</html>

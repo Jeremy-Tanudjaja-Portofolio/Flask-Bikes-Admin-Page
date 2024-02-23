@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_style.css') }}">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+        <div class="logo_name">Bike Rush</div>
+        <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+        <a href="#" id="admin">
+          <i class='bx bxs-user-account'></i>
+          <span class="links_name">Admin List</span>
+        </a>
+         <span class="tooltip">Admin List</span>
+      </li>
+      <li>
+        <a href="#" id="Departments">
+          <i class='bx bxs-user-detail'></i>
+          <span class="links_name">Departments List</span>
+        </a>
+         <span class="tooltip">Departments List</span>
+      </li>
+      <li>
+        <a href="#" id="employee_list">
+          <i class='bx bx-user-plus' ></i>
+          <span class="links_name">Employees List</span>
+        </a>
+         <span class="tooltip">Employees List</span>
+      </li>
+      <li>
+        <a href="#" id="product_list">
+          <i class='bx bxs-coin-stack'></i>
+          <span class="links_name">Product List</span>
+        </a>
+         <span class="tooltip">Product List</span>
+      </li>
+        <li>
+        <a href="#" id="inventories_list">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Inventories List</span>
+        </a>
+         <span class="tooltip">Inventories List</span>
+      </li>
+      <li>
+        <a href="#" id="vendor_list">
+          <i class='bx bx-store'></i>
+          <span class="links_name">Vendor List</span>
+        </a>
+         <span class="tooltip">Vendor List</span>
+      </li>
+          <li>
+        <a href="#" id="material_list">
+          <i class='bx bxs-food-menu'></i>
+          <span class="links_name">Material List</span>
+        </a>
+         <span class="tooltip">Material List</span>
+      </li>
+          <li>
+        <a href="#" id="material_order_list">
+          <i class='bx bxl-dropbox'></i>
+          <span class="links_name">Material Order</span>
+        </a>
+         <span class="tooltip">Material Order</span>
+      </li>
+          <li>
+        <a href="#" id="customer_list">
+          <i class='bx bx-user-circle'></i>
+          <span class="links_name">Customer List</span>
+        </a>
+         <span class="tooltip">Customer List</span>
+      </li>
+          <li>
+        <a href="#" id="sales_list">
+          <i class='bx bx-coin-stack'></i>
+          <span class="links_name">Sales List</span>
+        </a>
+         <span class="tooltip">Sales List</span>
+      </li>
+
+     <li class="profile">
+         <div class="profile-details">
+             <i class='bx bxs-user'></i>
+<!--             <img src="profile.jpg" alt="text">-->
+           <div class="name_job">
+             <div class="admin_id">{{admin_data['ID']}}</div>
+             <div class="admin_name">{{admin_data['name']}}</div>
+           </div>
+         </div>
+         <a href="{{url_for('index')}}">
+           <i class='bx bx-log-out' id="log_out" ></i>
+        </a>
+     </li>
+    </ul>
+  </div>
+  <section class="home-section" id="body">
+      <div class="text">Dashboard</div>
+
+  </section>
+
+  <script>
+  //For Slider to work
+  let sidebar = document.querySelector(".sidebar");
+  let closeBtn = document.querySelector("#btn");
+
+  closeBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("open");
+    menuBtnChange();//calling the function(optional)
+  });
+
+  // following are the code to change sidebar button(optional)
+  function menuBtnChange() {
+   if(sidebar.classList.contains("open")){
+     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+   }else {
+     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+   }
+  }
+  </script>
+  <script>
+    //ajax admin
+    $(document).ready(function(){
+        $("#admin").click(function(){
+             $.ajax({
+                url:'/Admin',
+                type:'POST',
+                success: function(response){
+                    $('#body').html(response)
+                }
+            })
+        });
+      });
+    //ajax Department list
+    $(document).ready(function(){
+        $("#Departments").click(function(){
+            $.ajax({
+                url:'/Departments',
+                type:'POST',
+                success: function(response){
+                    $('#body').html(response)
+                }
+            })
+        });
+      });
+    //ajax employees list
+    $(document).ready(function(){
+        $("#employee_list").click(function(){
+              $.ajax({
+                url:'/Employees',
+                type:'POST',
+                success: function(response){
+                    $('#body').html(response)
+                }
+            })
+        });
+      });
+    //ajax product list
+    $(document).ready(function(){
+        $("#product_list").click(function(){
+             $.ajax({
+                url:'/Product',
+                type:'POST',
+                success: function(response){
+                    $('#body').html(response)
+                }
+            })
+        });
+      });
+    //ajax inventories list
+    $(document).ready(function(){
+        $("#inventories_list").click(function(){
+              $.ajax({
+                url:'/Inventories',
+                type:'POST',
+                success: function(response){
+                    $('#body').html(response)
+                }
+            })
+        });
+      });
+       //ajax vendor list
+    $(document).ready(function(){
+        $("#vendor_list").click(function(){
+              $.ajax({
+                url:'/Vendor',
+                type:'POST',
+                success: function(response){
+                    $('#body').html(response)
+                }
+            })
+        });
+      });
+       //ajax material list
+    $(document).ready(function(){
+        $("#material_list").click(function(){
+              $.ajax({
+                url:'/Material',
+                type:'POST',
+                success: function(response){
+                    $('#body').html(response)
+                }
+            })
+        });
+      });
+       //ajax material order list
+    $(document).ready(function(){
+        $("#material_order_list").click(function(){
+              $.ajax({
+                url:'/Material_Order',
+                type:'POST',
+                success: function(response){
+                    $('#body').html(response)
+                }
+            })
+        });
+      });
+        //ajax customer list
+    $(document).ready(function(){
+        $("#customer_list").click(function(){
+              $.ajax({
+                url:'/Customer',
+                type:'POST',
+                success: function(response){
+                    $('#body').html(response)
+                }
+            })
+        });
+      });
+        //ajax sales_list
+    $(document).ready(function(){
+        $("#sales_list").click(function(){
+              $.ajax({
+                url:'/Sales',
+                type:'POST',
+                success: function(response){
+                    $('#body').html(response)
+                }
+            })
+        });
+      });
+
+
+  </script>
+</body>
+</html>

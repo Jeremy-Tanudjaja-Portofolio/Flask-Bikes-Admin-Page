@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+  .content-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .content-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .content-table th,
+  .content-table td {
+    padding: 12px 15px;
+  }
+
+  .content-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+
+  .content-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+
+  .content-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+  }
+
+  .content-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+  }
+  </style>
+</head>
+<body>
+<div class = "" style="padding:50px;">
+
+<p style='font: 54px bold;'>Admin Database
+    <a href="{{url_for('load_report_page')}}"><i class='bx bxs-report' style="width:35px;height:40px;color:black;"></i></a>
+</p><br><br>
+
+<form method="post" enctype="multipart/form-data" action="{{url_for('insert_admin')}}">
+
+  <label style="display:inline-block; width:250px;">New Username:</label>
+  <input type="text" name="Admin_Username" style="display:inline-block; width:320px;"
+                                   placeholder="Admin" onfocus="this.value = this.value=='Admin'?'':this.value;" onblur="this.value = this.value==''?'Admin':this.value;">
+    <br><br>
+
+  <label style="display:inline-block; width:250px;">Password:</label>
+  <input type="text" name="Admin_Password" style="display:inline-block; width:320px;"
+         placeholder="Password" onfocus="this.value = this.value=='Password'?'':this.value;" onblur="this.value = this.value==''?'Password':this.value;">
+    <br><br>
+
+  <label style="display:inline-block; width:250px;">Employee ID:</label>
+  <input type="text" name="Admin_EmployeeID" style="display:inline-block; width:320px;"
+         placeholder="2001" onfocus="this.value = this.value=='2001'?'':this.value;" onblur="this.value = this.value==''?'2001':this.value;">
+    <br><br>
+
+
+  <input type="submit" value="Add" name="Create_Admin"  id="Create_Admin" style="width:100px;margin-right:30px; margin-left:90px;">
+
+
+
+</form>
+<br><br>
+
+
+
+<table class="content-table">
+  <thead>
+    <tr>
+      <td>No</td>
+      <td>Admin ID</td>
+      <td>Username</td>
+      <td>Password</td>
+      <td>Employee ID</td>
+      <td colspan="2" style="text-align:center;">Action</td>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Table Content Here, create a while loop to get ze tables-->
+  {% for row_num in range(data|length): %}
+    <tr>
+      <td>{{row_num+1}}</td>
+      <td>{{data[row_num]['admin_id']}}</td>
+      <td>{{data[row_num]['username']}}</td>
+      <td>{{data[row_num]['password']}}</td>
+      <td>{{data[row_num]['emp_id']}}</td>
+      <td>
+          <form action="{{url_for('load_update_admin')}}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="Admin_ID" value="{{data[row_num]['admin_id']}}">
+                <input type="hidden" name="Username" value="{{data[row_num]['username']}}">
+                <input type="hidden" name="Password" value="{{data[row_num]['password']}}">
+                <input type="hidden" name="Emp_ID" value="{{data[row_num]['emp_id']}}">
+                <button type="submit" class="btn btn-warning btn-xs" >Edit</button>
+          </form>
+      </td>
+        <td>
+          <a href="{{url_for('delete_admin', id=data[row_num]['admin_id'])}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure To Delete')">Delete</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</html>
